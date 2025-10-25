@@ -4,7 +4,7 @@ In this lab we will create a local Kubernetes cluster using Kind and explore its
 ## 1. Create a Kind Cluster
 Create a multi-node cluster with 1 control plane and 1 worker node:
 ```bash
-kind create cluster --config ./k8s/cluster-config.yaml
+kind create cluster --config ./k8s/0-cluster-setup/cluster-config.yaml
 ```
 
 ## 2. Verify Cluster Configuration
@@ -67,7 +67,7 @@ kubectl get pods -n kube-system -o wide
 ```
 
 ## 5. Set Default Namespace
-Set kube-system as the default namespace for subsequent commands:
+Set kube-system as the default namespace
 ```bash
 kubectl config set-context --current --namespace kube-system
 ```
@@ -93,11 +93,9 @@ ps aux
 
 # List all containers managed by CRI
 crictl ps -a
-```
 
-Exit the container:
-```bash
-exit
+# exit container 
+ exit
 ```
 
 ## Clean Up

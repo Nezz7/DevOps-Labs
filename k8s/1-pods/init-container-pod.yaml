@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp 
+spec:
+  containers:
+  - name: myapp 
+    image: nginx:latest
+  initContainers:
+  - name: run-db-migration
+    image: ubuntu:latest
+    command: ['sh', '-c', "echo \"Running database migrations...\"; sleep 10; echo \"Database migrations completed.\""]
