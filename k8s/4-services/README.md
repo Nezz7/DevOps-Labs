@@ -28,30 +28,20 @@ Note in this lab we will create resources in demo namespace. Make sure to create
 ```bash
 kubectl create namespace demo
 ```
-Set kube-system as the default namespace
+Set kube-system as the default namespace to avoid carrying -n demo flag for each cmd.
 
 ```bash
 kubectl config set-context --current --namespace demo
 ```
 ### 1. Create ClusterIP Service
 ```bash
-kubectl apply -f deployment-for-service.yaml
+kubectl apply -f deployment.yaml
 kubectl apply -f clusterip-service.yaml
 kubectl get svc
 kubectl describe svc clusterip-service
 ```
 
-### 2. Create NodePort Service
-
-```bash
-kubectl apply -f deployment-for-service.yaml
-kubectl apply -f nodeport-service.yaml
-kubectl get svc
-# Access via: http://<node-ip>:<node-port>
-```
-For more details on how to configure a NodePort service in Kind refer to [this guide](https://kind.sigs.k8s.io/docs/user/configuration/#extra-port-mappings).
-
-### 3. Test Service Discovery
+###  Test Service Discovery
 ### DNS in Kubernetes
 
 Each Service gets a DNS name
@@ -76,6 +66,28 @@ kubectl run test-pod --image=nicolaka/netshoot  -it --rm -- sh
 # curl app.demo.svc.cluster.local
 # nslookup app.demo.svc.cluster.local
 ```
+
+
+## Testing the LoadBalancing 
+We will modify the index.html file in one of the Nginx pods and then curl the service to see whether we get a different response each time.
+
+```bash
+# get a pod name
+kubectl get pod 
+# exec to pod 
+kubectl exec -it nginx-xxx-xxx -- sh 
+# Inside the container
+# cd /usr/share/nginx/html
+# cat index.yaml
+# echo "Hello World!" > index.yaml (Overwrite the file content)
+# exit
+
+kubectl run test-pod --image=nicolaka/netshoot  -it --rm -- sh
+# Inside the pod:
+# curl app.demo.svc.cluster.local 
+```
+Run the CURL cmd multiple times and see the difference.
+
 ### Check the POD CIDR and Service CIDR
 ```bash
 kubectl -n kube-system get configmap kube-proxy -o yaml | grep clusterCIDR
@@ -83,9 +95,20 @@ kubectl -n kube-system get configmap kube-proxy -o yaml | grep clusterCIDR
 # Inside the controlPlane node run:
 
 ps -ef | grep kube-apiserver | grep service-cluster-ip-range
+```
 
 
-``` 
+### 2. Create NodePort Service
+
+```bash
+kubectl apply -f deployment-for-service.yaml
+kubectl apply -f nodeport-service.yaml
+kubectl get svc
+# Access via: http://<node-ip>:<node-port>
+```
+For more details on how to configure a NodePort service in Kind refer to [this guide](https://kind.sigs.k8s.io/docs/user/configuration/#extra-port-mappings).
+
+
 ## Useful Commands
 ```bash
 kubectl get svc                     
