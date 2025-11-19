@@ -1,0 +1,8 @@
+#!/bin/sh
+# commit-msg hook to enforce conventional commits
+commit_msg=$1
+regex="^(feat|fix|docs|chore)(\([a-zA-Z0-9_-]+\))?: .+"
+if ! grep -qE "$regex" "$commit_msg"; then
+  echo "ERROR: Commit message does not follow Conventional Commits format."
+  exit 1
+fi
