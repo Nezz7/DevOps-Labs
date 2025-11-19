@@ -9,4 +9,4 @@ spec:
   initContainers:
   - name: run-db-migration
     image: ubuntu:latest
-    command: ['sh', '-c', "echo \"Running database migrations...\"; sleep 10; echo \"Database migrations completed.\""]
+    command: ['sh', '-c', "echo \"Running database migrations...\"; sleep 30; echo \"Database migrations completed.\""]
