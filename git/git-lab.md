@@ -56,11 +56,11 @@ git add A.txt
 find  .git/objects
 .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
 ```
-Now you can see some files in the `.git/objects` directory. let's open it
+Now you can see some files in the `.git/objects` directory. Let's open it
 ```bash
 cat .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
 ```
-it shows some binary data. Git stores files in a compressed format.
+It shows some binary data. Git stores files in a compressed format.
 ``` bash
 file .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
 .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7: zlib compressed data
@@ -132,7 +132,8 @@ The `parent` line shows the SHA-1 checksum of the parent commit.
 
 Task1: Explore the second commit tree object and try to answer How does git store the files in the commit? is it a full snapshot or a delta?
 
-Task2: Try to create a new file `echo "Hello world" > C.txt` then run `git add C.txt`. How many new objects are created in the `.git/objects` directory? Why?
+Task2: Try to create a new file `echo "Hello world" > C.txt` then run `git add C.txt`. 
+How many new objects are created in the `.git/objects` directory? Why?
 
 Commit your changes.
 ```bash
@@ -221,7 +222,7 @@ On branch main
 nothing to commit, working tree clean
 ```
 
-Task1: Try to add A.txt to the staging area how to undo the changes in the staging area?
+Task1: Try to add A.txt to the staging area how to undo the changes in the staging area? <br>
 Task2: How to undo the last commit but keep the changes in the working directory?
 
 
